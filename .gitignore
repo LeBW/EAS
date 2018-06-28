@@ -1,4 +1,5 @@
 .idea
 *.iml
+*.ini
 
-valcode.png
+val_code.png
