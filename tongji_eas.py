@@ -4,6 +4,7 @@ docstring
 import time
 
 from selenium import webdriver
+from selenium.common.exceptions import NoSuchElementException
 
 OPTIONS = webdriver.ChromeOptions()
 OPTIONS.add_argument(
@@ -70,6 +71,12 @@ def main():
 
         except:
             print("exception")
+            try:
+                ok_button = browser.find_element_by_xpath("//span[text()='确认']")
+                ok_button.click()
+                print("已自动点击确认按钮")
+            except NoSuchElementException:
+                print("没有确认按钮")
             time.sleep(2)
 
 
