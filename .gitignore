@@ -2,4 +2,6 @@
 *.iml
 *.ini
 
+.vscode/
+
 val_code.png

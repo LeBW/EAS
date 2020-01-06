@@ -1,19 +1,15 @@
-from selenium import webdriver
-# 导入Keys 模块[键盘]
-from selenium.webdriver.common.keys import Keys
-# 导入Wait相关
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
-
-import sys
+"""
+docstring
+"""
 import time
 
+from selenium import webdriver
 
-options = webdriver.ChromeOptions()
-options.add_argument('user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36"')
+OPTIONS = webdriver.ChromeOptions()
+OPTIONS.add_argument(
+    'user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36"')
 
-browser = webdriver.Chrome(options=options)
+browser = webdriver.Chrome(options=OPTIONS)
 
 url = "http://1.tongji.edu.cn"
 
@@ -80,37 +76,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-
-
-
-def getHotelInfo():
-    # wait until the button is clickable
-    wait = WebDriverWait(browser, 10)
-    more_info_button = wait.until(EC.element_to_be_clickable((By.CLASS_NAME, '_1jyr48cu')))
-    # click the button
-    more_info_button.send_keys(Keys.RETURN)
-    # get the information
-    total_details = browser.find_element_by_class_name('_wpwi48')
-    facs = total_details.find_elements_by_class_name('_ppgibgk')
-    for facc in facs:
-        print(facc.text)
-
-    # ss = browser.find_elements_by_tag_name('div')
-    # for s in ss:
-    #     st=s.text
-    #     num=st.find('熨斗')
-    #     if num!=-1:
-    #         print(st.find('熨斗'))
-
-
-def getHotelComment():
-    commentDates = browser.find_elements_by_css_selector('div._zjunba')
-    # print(len(commentDates))
-    for commentDate in commentDates:
-        data = commentDate.find_element_by_css_selector('span._ppgibgk').text
-    commentDates = browser.find_elements_by_css_selector('div._11dqbld7')
-    for commentDate in commentDates:
-        data = commentDate.text
-        print(data)
-
