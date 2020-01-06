@@ -19,41 +19,38 @@ url = "http://1.tongji.edu.cn"
 
 
 def main():
-    login()
-    time.sleep(2)
+    browser.get(url)
 
-    # 参数分别代表 课程序号、老师序号
-    course_num = int(sys.argv[1])
-    teacher_num = int(sys.argv[2])
+    teacher_index = int(input("请在浏览器界面中自行登录,进入选课界面,选择好需要抢的课后,在此输入老师的序号,并点击回车:"))
 
-    choose_course_btn = browser.find_element_by_xpath("//p[text()='选课']")
-    choose_course_btn.click()
-    time.sleep(2)
+    # choose_course_btn = browser.find_element_by_xpath("//p[text()='选课']")
+    # choose_course_btn.click()
+    # time.sleep(2)
 
-    enter_course_btn = browser.find_element_by_css_selector("button.el-button.el-button--large")
-    enter_course_btn.click()
-    time.sleep(2)
+    # enter_course_btn = browser.find_element_by_css_selector("button.el-button.el-button--large")
+    # enter_course_btn.click()
+    # time.sleep(2)
 
-    choose_course_btn = browser.find_element_by_xpath("//span[text()='选择课程']")
-    choose_course_btn.click()
-    time.sleep(2)
+    # choose_course_btn = browser.find_element_by_xpath("//span[text()='选择课程']")
+    # choose_course_btn.click()
+    # time.sleep(2)
 
-    course_list = browser.find_elements_by_class_name("el-table__row")
-    course = course_list[course_num]
+    # course_list = browser.find_elements_by_class_name("el-table__row")
+    # course = course_list[course_num]
 
-    print(course.find_element_by_class_name("el-table_1_column_3  ").text)
+    # print(course.find_element_by_class_name("el-table_1_column_3  ").text)
 
-    course.find_element_by_css_selector("span.el-checkbox__inner").click()
+    # course.find_element_by_css_selector("span.el-checkbox__inner").click()
 
-    submit_btn = browser.find_element_by_xpath("//span[text()='提交']")
-    submit_btn.click()
-    time.sleep(1)
+    # submit_btn = browser.find_element_by_xpath("//span[text()='提交']")
+    # submit_btn.click()
+    # time.sleep(1)
 
     trs = browser.find_element_by_css_selector("table.table-selected").find_elements_by_tag_name("tr")
     #
     trs[1].click()
     time.sleep(1)
-    tr = browser.find_element_by_css_selector("table.table-class").find_elements_by_tag_name("tr")[teacher_num]
+    tr = browser.find_element_by_css_selector("table.table-class").find_elements_by_tag_name("tr")[teacher_index]
     tds = tr.find_elements_by_tag_name("td")
     print(tds[1].text + ": " + tds[3].text)
     tds[1].click()
@@ -63,7 +60,7 @@ def main():
             count += 1
             trs[1].click()
             time.sleep(0.5)
-            tr = browser.find_element_by_css_selector("table.table-class").find_elements_by_tag_name("tr")[teacher_num]
+            tr = browser.find_element_by_css_selector("table.table-class").find_elements_by_tag_name("tr")[teacher_index]
             tds = tr.find_elements_by_tag_name("td")
             print(time.strftime("[%Y-%m-%d %X] ", time.localtime()) + "第" + str(count) + "次尝试：" + tds[1].text + ": " + tds[3].text)
             n1, n2 = tds[3].text.split('/')
@@ -80,14 +77,6 @@ def main():
             time.sleep(2)
 
 
-
-def login():
-    browser.get(url)
-    # 10秒的时间输入 账户名，密码，验证码
-    time.sleep(10)
-
-    login_button = browser.find_element_by_name("btsubmit")
-    login_button.click()
 
 if __name__ == '__main__':
     main()
